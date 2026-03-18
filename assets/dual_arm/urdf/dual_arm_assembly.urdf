@@ -307,7 +307,7 @@
     <child
       link="l5" />
     <axis
-      xyz="1 0 0" />
+      xyz="-1 0 0" />
   </joint>
   <link
     name="l6">
@@ -572,6 +572,6 @@
     <child
       link="l10" />
     <axis
-      xyz="-1 0 0" />
+      xyz="1 0 0" />
   </joint>
 </robot>

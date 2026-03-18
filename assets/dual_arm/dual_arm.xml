@@ -80,7 +80,7 @@
 
               <!-- j5: l4 → l5, rpy=(π, -π/2, 0) -->
               <body name="l5" pos="0.0208 0 -0.0968" euler="3.14159265 -1.5707963 0">
-                <joint name="j5" type="hinge" axis="1 0 0" range="-3.14 3.14"/>
+                <joint name="j5" type="hinge" axis="-1 0 0" range="-3.14 3.14"/>
                 <inertial pos="-0.10068 -0.000731 0.000257" mass="0.10878"
                   diaginertia="5.893e-5 1.563e-4 1.689e-4"/>
                 <geom class="visual" mesh="l5"/>
@@ -121,7 +121,7 @@
 
               <!-- j10: l9 → l10, rpy=(0, π/2, 0) -->
               <body name="l10" pos="0.0208 0 0.0968" euler="0 1.5707963 0">
-                <joint name="j10" type="hinge" axis="-1 0 0" range="-3.14 3.14"/>
+                <joint name="j10" type="hinge" axis="1 0 0" range="-3.14 3.14"/>
                 <inertial pos="-0.10066 -0.000733 -0.000262" mass="0.10880"
                   diaginertia="5.892e-5 1.563e-4 1.689e-4"/>
                 <geom class="visual" mesh="l10"/>
