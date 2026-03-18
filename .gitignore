@@ -105,6 +105,10 @@ tmp/
 
 motion_data/
 
+ACCAD/
+
+output/
+
 GVHMR/
 
 batch_twist1_to_csv.py
