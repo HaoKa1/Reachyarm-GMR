@@ -1,17 +1,21 @@
 <mujoco model="dual_arm">
   <compiler angle="radian" meshdir="meshes" autolimits="true"/>
 
-  <default>
-    <default class="dual_arm">
-      <geom type="mesh"/>
-      <joint damping="0.5" armature="0.05"/>
-      <default class="visual">
-        <geom contype="0" conaffinity="0" group="2" rgba="0.79 0.82 0.93 1"/>
-      </default>
-    </default>
-  </default>
+  <!-- scene lighting & camera -->
+  <statistic center="0 0.1 0.7" extent="0.6"/>
+  <visual>
+    <headlight diffuse="0.6 0.6 0.6" ambient="0.3 0.3 0.3" specular="0.9 0.9 0.9"/>
+    <rgba haze="0.15 0.25 0.35 1"/>
+    <global azimuth="180" elevation="-15"/>
+  </visual>
 
   <asset>
+    <texture type="skybox" builtin="gradient" rgb1="0.3 0.5 0.7" rgb2="0.0 0.0 0.0" width="512" height="3072"/>
+    <texture type="2d" name="groundplane" builtin="checker" mark="edge"
+             rgb1="0.2 0.3 0.4" rgb2="0.1 0.2 0.3" markrgb="0.8 0.8 0.8"
+             width="300" height="300"/>
+    <material name="groundplane" texture="groundplane" texuniform="true"
+              texrepeat="5 5" reflectance="0.2"/>
     <mesh file="base_link.STL"/>
     <mesh file="l1.STL"/>
     <mesh file="l2.STL"/>
@@ -25,7 +29,20 @@
     <mesh file="l10.STL"/>
   </asset>
 
+  <default>
+    <default class="dual_arm">
+      <geom type="mesh"/>
+      <joint damping="0.5" armature="0.05"/>
+      <default class="visual">
+        <geom contype="0" conaffinity="0" group="2" rgba="0.79 0.82 0.93 1"/>
+      </default>
+    </default>
+  </default>
+
   <worldbody>
+    <light pos="0 -2 3" dir="0 1 -1" directional="true" diffuse="0.6 0.6 0.6" specular="0.3 0.3 0.3"/>
+    <light pos="0  2 3" dir="0 -1 -1" directional="true" diffuse="0.4 0.4 0.4" specular="0.1 0.1 0.1"/>
+    <geom name="floor" size="0 0 0.05" type="plane" material="groundplane"/>
     <!-- base_link: fixed to world, arms mount at z=0.639 above ground -->
     <body name="base_link" pos="0 0 0" childclass="dual_arm">
       <inertial pos="-1.28e-6 0.0061 0.3694" mass="1.49976"
@@ -35,7 +52,7 @@
       <!-- ===================== Left arm: l1 → l2 → l3 → l4 → l5 ===================== -->
       <!-- j1: base_link → l1, rpy=(π, 0, π) -->
       <body name="l1" pos="-0.1214 -0.0005 0.639" euler="3.14159265 0 3.14159265">
-        <joint name="j1" type="hinge" axis="-1 0 0" range="-3.14 3.14"/>
+        <joint name="j1" type="hinge" axis="1 0 0" range="-3.14 3.14"/>
         <inertial pos="0.01504 0.000481 -0.003089" mass="0.04438"
           diaginertia="2.829e-5 1.698e-5 2.829e-5"/>
         <geom class="visual" mesh="l1"/>
@@ -49,7 +66,7 @@
 
           <!-- j3: l2 → l3, rpy=(π/2, -π/2, 0) -->
           <body name="l3" pos="0.024 0 0.05527" euler="1.5707963 -1.5707963 0">
-            <joint name="j3" type="hinge" axis="-1 0 0" range="-3.14 3.14"/>
+            <joint name="j3" type="hinge" axis="1 0 0" range="-3.14 3.14"/>
             <inertial pos="0.11067 0.000323 -9.306e-5" mass="0.20614"
               diaginertia="1.395e-4 6.391e-4 6.759e-4"/>
             <geom class="visual" mesh="l3"/>
@@ -63,7 +80,7 @@
 
               <!-- j5: l4 → l5, rpy=(π, -π/2, 0) -->
               <body name="l5" pos="0.0208 0 -0.0968" euler="3.14159265 -1.5707963 0">
-                <joint name="j5" type="hinge" axis="-1 0 0" range="-3.14 3.14"/>
+                <joint name="j5" type="hinge" axis="1 0 0" range="-3.14 3.14"/>
                 <inertial pos="-0.10068 -0.000731 0.000257" mass="0.10878"
                   diaginertia="5.893e-5 1.563e-4 1.689e-4"/>
                 <geom class="visual" mesh="l5"/>
@@ -83,7 +100,7 @@
 
         <!-- j7: l6 → l7, rpy=(π, 0, -π/2) -->
         <body name="l7" pos="0.0398 0.024 0" euler="3.14159265 0 -1.5707963">
-          <joint name="j7" type="hinge" axis="-1 0 0" range="-3.14 3.14"/>
+          <joint name="j7" type="hinge" axis="1 0 0" range="-3.14 3.14"/>
           <inertial pos="0.02372 -7.69e-7 0.02350" mass="0.06527"
             diaginertia="1.337e-5 1.466e-5 1.460e-5"/>
           <geom class="visual" mesh="l7"/>
@@ -97,7 +114,7 @@
 
             <!-- j9: l8 → l9, rpy=(0, π/2, 0) -->
             <body name="l9" pos="0.22747 0 0.0208" euler="0 1.5707963 0">
-              <joint name="j9" type="hinge" axis="-1 0 0" range="-3.14 3.14"/>
+              <joint name="j9" type="hinge" axis="1 0 0" range="-3.14 3.14"/>
               <inertial pos="0.02080 0.006929 0.05856" mass="0.11296"
                 diaginertia="1.494e-4 1.512e-4 8.727e-5"/>
               <geom class="visual" mesh="l9"/>

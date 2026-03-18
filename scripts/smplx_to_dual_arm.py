@@ -80,11 +80,11 @@ def main():
 
     # ── Viewer loop ───────────────────────────────────────────────────────────
     with mjv.launch_passive(model, data, show_left_ui=False, show_right_ui=False) as viewer:
-        # Camera setup: look at base_link from a fixed angle
-        viewer.cam.lookat = np.array([0.0, 0.0, 0.8])
-        viewer.cam.distance = 2.0
+        # Camera setup: front view of robot (arms face camera)
+        viewer.cam.lookat = np.array([0.0, 0.1, 0.67])
+        viewer.cam.distance = 1.3
         viewer.cam.elevation = -15
-        viewer.cam.azimuth = 45
+        viewer.cam.azimuth = 90
 
         i = 0
         fps_t0 = time.time()
